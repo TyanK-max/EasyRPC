@@ -48,9 +48,8 @@ public class ZKServiceRegister implements ServiceRegister{
     // 根据服务名返回地址
     @Override
     public InetSocketAddress serviceDiscovery(String serviceName) {
-        List<String> strings = null;
         try {
-            strings = client.getChildren().forPath("/" + serviceName);
+            List<String> strings = client.getChildren().forPath("/" + serviceName);
             RandomLoadBalance balance = new RandomLoadBalance();
             String s = balance.balance(strings);
             InetSocketAddress address = parseAddress(s);
